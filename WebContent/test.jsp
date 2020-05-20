@@ -7,10 +7,19 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+	window.onload =function()
+	{
+		
+		window.location.href="${pageContext.request.contextPath}/orders/shouye";
+	}
+	</script>
 </head>
 <body>
-	<form action="${pageContext.request.contextPath}/user/test" method="post" >				
+	<%-- <form action="${pageContext.request.contextPath}/user/test" method="post" >				
 	    <button type="submit">test</button>							
 	</form>
+	
+	 <a href="${pageContext.request.contextPath}/orders/shouye">首页</a> --%>
 </body>
 </html>

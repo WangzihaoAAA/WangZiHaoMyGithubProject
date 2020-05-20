@@ -67,11 +67,13 @@ public class Goodscontroller {
 			cartservice.updatenumber(c.getCnumber()+n,toll,ggname,user.getUsername());
 		}
 		
-//		Cart cart=cartservice.findCartByGnameAndUname(ggname, user.getUsername());//方法没错
-//		model.addAttribute("cart",cart);
-//		return "goodsdetail";
+		double finaltotal = 0;
 		List<Cart> Clist=cartservice.findCartByUname(user.getUsername());
 		model.addAttribute("list",Clist);
+		for (Cart cart : Clist) {
+			finaltotal=finaltotal+cart.getCtotoal();
+		}
+		model.addAttribute("total",finaltotal);
 		return "cart";
 //		return "test2";
 	}
@@ -80,8 +82,15 @@ public class Goodscontroller {
 	public String showcart(HttpSession session,Model model,HttpServletRequest request) {
 		User user=(User)session.getAttribute("nowuser");	
 		List<Cart> Clist=cartservice.findCartByUname(user.getUsername());
+		double finaltotal = 0;
 		model.addAttribute("list",Clist);
+		session.setAttribute("list", Clist);
+		for (Cart cart : Clist) {
+			finaltotal=finaltotal+cart.getCtotoal();
+		}
+		model.addAttribute("total",finaltotal);
 		return "cart";
+	
 	}
 
 	@RequestMapping("updatenum")
@@ -91,15 +100,20 @@ public class Goodscontroller {
 		String num=request.getParameter("number"+index);		
 		int n=Integer.parseInt(num);		
 		String ggname=request.getParameter("gname");
-	
+		double finaltotal = 0;
 		Goods good=goodsservice.findGoodsByGname(ggname);
 		double tol=n*good.getGprice();
 		cartservice.updatenumber(n,tol,good.getGname(),user.getUsername());
 			
 		List<Cart> Clist=cartservice.findCartByUname(user.getUsername());
 		model.addAttribute("list",Clist);
+		session.setAttribute("list", Clist);
 	/*	model.addAttribute("index",index);
 		model.addAttribute("num",num);*/
+		for (Cart cart : Clist) {
+			finaltotal=finaltotal+cart.getCtotoal();
+		}
+		model.addAttribute("total",finaltotal);
 		return "cart";
 	}
 	
@@ -107,10 +121,16 @@ public class Goodscontroller {
 	public String deleteitemscart(HttpSession session,Model model,HttpServletRequest request) {
 		User user=(User)session.getAttribute("nowuser");
 		String ggname=request.getParameter("gname");
+		double finaltotal = 0;
 		cartservice.deleteCartWithUname(ggname, user.getUsername());
 		List<Cart> Clist=cartservice.findCartByUname(user.getUsername());
 		model.addAttribute("list",Clist);
+		session.setAttribute("list", Clist);
+		for (Cart cart : Clist) {
+			finaltotal=finaltotal+cart.getCtotoal();
+		}
+		model.addAttribute("total",finaltotal);
 		return "cart";
 	}
-
+	
 }

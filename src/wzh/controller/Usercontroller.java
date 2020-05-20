@@ -32,23 +32,64 @@ public class Usercontroller {
 	
 	@RequestMapping("/login")
 	public String loging(@ModelAttribute User user,Model model, HttpSession session) {
+		try {
+			if(userservice.login(user)==true)
+			{   User u = userservice.findUserByUsername(user.getUsername());
+			     session.setAttribute("nowuser", u);
+				return "shouyeloging";}
+		} catch (Exception e) {
+			model.addAttribute("alert1","用户名不存在或密码错误");
+			return "shouye4";
+		}
 		
-		if(userservice.login(user)==true)
-		{   User u = userservice.findUserByUsername(user.getUsername());
-		     session.setAttribute("nowuser", u);
-			return "Maintain";}
-		else return "wrong";
+		return "shouye4";
+			
 	}
 	
 	
 	@RequestMapping("/register")
-	public String register(@ModelAttribute User user,Model model) {
-		userservice.createUser(user);
-		return "RegisterAccress";
+	public String register(@ModelAttribute User user,Model model,HttpSession session) {
+		
+		try {
+			User u=userservice.findUserByUsername(user.getUsername());
+			if(u!=null)
+			{model.addAttribute("alert2","用户名已存在");
+			return "register";}
+		} catch (Exception e) {
+			userservice.createUser(user);
+			/*session.setAttribute("nowuser",user);*/
+			return "shouye4";
+		}
+			
+		return "shouye4";
+		
 	}
 	
 	@RequestMapping("/toRegister")
 	public String toregister() {
 			return "register";
 	}
+	
+	@RequestMapping("/outline")
+	public String outline() {
+			return "shouye4";
+	}
+	
+	@RequestMapping("/toshouyeloging")
+	public String toshouyeloging( HttpSession session) {
+		
+			return "shouyeloging";
+	}
+	@RequestMapping("/toaboutus")
+	public String toaboutus( HttpSession session) {
+		
+			return "aboutus";
+	}
+	@RequestMapping("/userseting")
+	public String userseting( ) {
+		
+			return "userseting";
+	}
 }
+
+

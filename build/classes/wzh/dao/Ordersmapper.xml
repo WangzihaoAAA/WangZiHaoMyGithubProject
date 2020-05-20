@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wzh.dao.Ordersmapper" >
+ 	<select id="selectAllOrder"  resultType="wzh.pojo.Orders">
+    SELECT * from order
+ 	</select>		
+ 	
+ 	<select id="findOrdersByUname" parameterType="String" resultType="wzh.pojo.Orders">
+ 	select * from orders where ousername=#{uname}
+ 	</select>
+ 	
+ 	<insert id="createOrder" parameterType="wzh.pojo.Orders">
+ 	 <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="oid">
+	  SELECT LAST_INSERT_ID() AS oid
+	</selectKey>
+ 	insert into orders(ousername,ogoodsname,opicture,ototoal,oaddress) 
+ 	values(#{0},#{1},#{2},#{3},#{4})
+ 	</insert>
+ 	
+ 	<update id="updatenumber" parameterType="wzh.pojo.Orders" >
+ 	UPDATE cart  set cnumber=#{0},ctotoal=#{1} where cgoodsname=#{2} and cusername=#{3}
+ 	</update>
+ 
+ 	<select id="findcidByGname" parameterType="String" resultType="wzh.pojo.Orders">
+ 	select cid from cart where cgoodsname=#{gname}
+ 	</select>
+ 	
+ 	<select id="findCartByGnameAndUname" parameterType="String" resultType="wzh.pojo.Orders">
+ 	select * from cart where cgoodsname=#{0} and cusername=#{1}
+ 	</select>
+ 	
+ 	<delete id="deleteCartWithUname" parameterType="wzh.pojo.Orders">  
+        DELETE FROM cart WHERE cgoodsname=#{0} and cusername=#{1} 
+	</delete>  
+	
+</mapper>

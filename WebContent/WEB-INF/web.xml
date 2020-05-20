@@ -6,7 +6,7 @@
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>shouye4.jsp</welcome-file>
 		<welcome-file>default.html</welcome-file>
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
@@ -60,8 +60,24 @@
 		<url-pattern>*.jpg</url-pattern>
 	</servlet-mapping>
 	
-
- 	
+	<servlet-mapping>
+	<servlet-name>default</servlet-name>
+		<url-pattern>*.png</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+	<servlet-name>default</servlet-name>
+		<url-pattern>*.gif</url-pattern>
+	</servlet-mapping>
+ 	<servlet-mapping>
+	<servlet-name>default</servlet-name>
+		<url-pattern>*.woff</url-pattern>
+		<url-pattern>*.svg</url-pattern>
+		<url-pattern>*.eot</url-pattern>
+		<url-pattern>*.ttf</url-pattern>
+		<url-pattern>*.woff2</url-pattern>
+	</servlet-mapping>
+		
 	<!-- 前端控制器 -->
 	<servlet>
 		<servlet-name>springmvc</servlet-name>
